@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
+
 # ---------------------------------------------------------
 # Predator{Prey Model (Lotka{Volterra)
 # ---------------------------------------------------------
@@ -23,31 +24,36 @@ return [dxdt, dydt]
 # ---------------------------------------------------------
 # Solve the system
 # ---------------------------------------------------------
-t_span = (0, 50) # time interval
+t_span = (0, 150) # time interval
 initial_conditions = [40, 9] # x(0)=40 prey, y(0)=9 predators
 solution = solve_ivp(predator_prey, t_span, initial_conditions, dense_output=True)
+
 # High-resolution time grid for plotting
-t = np.linspace(0, 50, 400)
+t = np.linspace(0, 150, 500)
 x, y = solution.sol(t)
+
 # ---------------------------------------------------------
 # Plot results
 # ---------------------------------------------------------
 plt.figure(figsize=(12,5))
+
 # Population vs. time
 plt.subplot(1, 2, 1)
 plt.plot(t, x, label="Prey")
 plt.plot(t, y, label="Predators")
-plt.xlabel("Time")
+plt.xlabel("Time (Days)")
 plt.ylabel("Population")
 plt.title("Predator{Prey Dynamics")
 plt.grid(True)
 plt.legend()
+
 # Phase portrait
 plt.subplot(1, 2, 2)
-plt.plot(x, y)
+plt.plot(x, y, color='crimson', linewidth=2)
 plt.xlabel("Prey")
 plt.ylabel("Predators")
 plt.title("Phase Plane (x vs y)")
 plt.grid(True)
+
 plt.tight_layout()
 plt.show()
