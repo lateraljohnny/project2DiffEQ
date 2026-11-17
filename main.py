@@ -14,7 +14,6 @@ def predator_prey(t, vars):
 x, y = vars
 # Parameters
 a = 1.0 # prey growth rate
-3
 b = 0.1 # predation rate
 c = 0.075 # predator reproduction efficiency
 d = 1.5 # predator death rate
