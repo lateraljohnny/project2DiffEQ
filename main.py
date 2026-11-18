@@ -14,19 +14,19 @@ import matplotlib.pyplot as plt
 # Z(t): immune population
 # ---------------------------------------------------------
 def predator_prey(t, vars):
-S, I, Z = vars
-N = S + I + Z
-# Parameters
-b = 0.05 # birth rate
-d = 0.0001 # death rate
-alpha = 0.05 # death rate by disease
-beta = 0.0012 # transmission rate
-gamma = 0.10 # recover rate
-dSdt = (b*N) - (beta*S*I) - (d*N*S)
-dIdt = (beta*S*I) - (gamma*I) - (d*N*I) - (alpha*I)
-dZdt = (gamma*I) - (d*N*I)
+    S, I, Z = vars
+    N = S + I + Z
+    # Parameters
+    b = 0.05 # birth rate
+    d = 0.0001 # death rate
+    alpha = 0.05 # death rate by disease
+    beta = 0.0012 # transmission rate
+    gamma = 0.10 # recover rate
+    dSdt = (b*N) - (beta*S*I) - (d*N*S)
+    dIdt = (beta*S*I) - (gamma*I) - (d*N*I) - (alpha*I)
+    dZdt = (gamma*I) - (d*N*I)
 
-return [dSdt, dIdt, Dzdt]
+    return [dSdt, dIdt, dZdt]
 
 # ---------------------------------------------------------
 # Solve the system
