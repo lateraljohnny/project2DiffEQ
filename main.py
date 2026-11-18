@@ -12,47 +12,53 @@ import matplotlib.pyplot as plt
 # y(t): predator population
 # ---------------------------------------------------------
 def predator_prey(t, vars):
-x, y = vars
+S, I, Z = vars
+N = S + I + Z
 # Parameters
-a = 1.0 # prey growth rate
-b = 0.1 # predation rate
-c = 0.075 # predator reproduction efficiency
-d = 1.5 # predator death rate
-dxdt = a*x - b*x*y
-dydt = c*x*y - d*y
-return [dxdt, dydt]
+b = 0.05 # birth rate
+d = 0.0001 # death rate
+alpha = 0.05 # death rate by disease
+beta = 0.0012 # transmission rate
+gamma = 0.10 # recover rate
+dSdt = (b*N) - (beta*S*I) - (d*N*S)
+dIdt = (beta*S*I) - (gamma*I) - (d*N*I) - (alpha*I)
+dZdt = (gamma*I) - (d*N*I)
+
+return [dSdt, dIdt, Dzdt]
+
 # ---------------------------------------------------------
 # Solve the system
 # ---------------------------------------------------------
 t_span = (0, 150) # time interval
-initial_conditions = [40, 9] # x(0)=40 prey, y(0)=9 predators
+initial_conditions = [450, 20, 0] # S(0) = 450, I(0) = 20, Z(0) = 0
 solution = solve_ivp(predator_prey, t_span, initial_conditions, dense_output=True)
 
 # High-resolution time grid for plotting
 t = np.linspace(0, 150, 500)
-x, y = solution.sol(t)
+S, I, Z = solution.sol(t)
 
 # ---------------------------------------------------------
 # Plot results
 # ---------------------------------------------------------
-plt.figure(figsize=(12,5))
+plt.figure(figsize=(12, 5))
 
 # Population vs. time
 plt.subplot(1, 2, 1)
-plt.plot(t, x, label="Prey")
-plt.plot(t, y, label="Predators")
+plt.plot(t, S, label="Susceptible")
+plt.plot(t, I, label="Infected")
+plt.plot(t, Z, label="Immune")
 plt.xlabel("Time (Days)")
 plt.ylabel("Population")
-plt.title("Predator{Prey Dynamics")
+plt.title("Ant Colony Disease Dynamics")
 plt.grid(True)
 plt.legend()
 
 # Phase portrait
 plt.subplot(1, 2, 2)
-plt.plot(x, y, color='crimson', linewidth=2)
-plt.xlabel("Prey")
-plt.ylabel("Predators")
-plt.title("Phase Plane (x vs y)")
+plt.plot(S, I, color='crimson', linewidth=2)
+plt.xlabel("Susceptible")
+plt.ylabel("Infected")
+plt.title("Phase Plane (S vs I)")
 plt.grid(True)
 
 plt.tight_layout()
