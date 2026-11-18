@@ -3,13 +3,15 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
 # ---------------------------------------------------------
-# Predator{Prey Model (Lotka{Volterra)
+# Ant Colony Disease Model (SIZ)
 # ---------------------------------------------------------
-# Prey: dx/dt = a*x - b*x*y
-# Predator: dy/dt = c*x*y - d*y
+# Susceptible: dS/dt
+# Infected: dI/dt
+# Immune: dZ/dt
 #
-# x(t): prey population
-# y(t): predator population
+# S(t): susceptible population
+# I(t): infected population
+# Z(t): immune population
 # ---------------------------------------------------------
 def predator_prey(t, vars):
 S, I, Z = vars
